@@ -104,7 +104,20 @@ exports.updateSala = async (req, res) => {
     }
 }
 
+exports.updateSala = async (req, res) => {
+  try{
+      const { id } = req.params;
+      const { imagen,nombre,direccion,capacidad,estado } = req.body;
+      const salaActualizada = await Salas.update({imagen,nombre,direccion,capacidad,estado}, { where: { id: id } });
 
+      if (salaActualizada[0] === 0) {
+          return res.status(404).json({ message: 'Sala no encontrada' });
+      }
+      res.status(201).json({ message: 'Sala actualizada exitosamente' });
+  }catch(error){
+      res.status(500).json({message: error.message});
+  }
+}
 
 
 
@@ -144,7 +157,7 @@ exports.crearSala = async (req,res) => {
         nombre,
         direccion,
         capacidad,
-        estado:false,
+        estado:true,
       });
       // Responder con éxito
       res.status(201).json({
