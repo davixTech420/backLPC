@@ -2,6 +2,8 @@ const multer = require('multer');
 const path = require('path');
 const Shows = require('../models/Shows');
 const Pedidos = require('../models/Pedido');
+const User = require("../models/User");
+const Empleado = require("../models/Empleado");
 
 
 exports.eliminarPedido = async (req, res) => {
@@ -171,3 +173,50 @@ const storage = multer.diskStorage({
       }
     });
   };
+
+
+
+/**
+ * 
+ * 
+ * asignar empleados a un pedido
+ * 
+ * 
+ */
+
+exports.asignarEmpleado = async (req, res) => {
+  const { idEmpleado, idShow } = req.params; // Obtener el ID del cliente desde los parámetros de la solicitud
+  try {
+    // Actualizar el usuario
+   /*  const hashedPassword = await bcrypt.hash(password, 10); */
+    const pedidoActualizado = await Pedidos.update(
+      { 
+        estado:"pendiente"
+       }, 
+      { where: { showId :id} } // Condición para encontrar el usuario
+    );
+
+    // Actualizar el cliente
+    const clienteActualizado = await Shows.update(
+      {
+         estado:false 
+      }, // Campos a actualizar
+      { where: { id: id } } // Condición para encontrar el cliente
+    );
+
+    
+
+    res.status(200).json({ message: 'Inactivado Con Exito' });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+};
+
+
+/**
+ * 
+ * 
+ * 
+ */
+  
+  
