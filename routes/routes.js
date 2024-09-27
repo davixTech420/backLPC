@@ -1,4 +1,4 @@
-const express = require("express");
+ const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController");
 const salasController = require("../controllers/salasController");
@@ -7,6 +7,7 @@ const clienteController = require("../controllers/clienteController");
 const empleadoController = require("../controllers/empleadoController");
 const showController = require("../controllers/showController");
 const jefeSalaController = require("../controllers/jefeSalaController");
+const pedidoController = require("../controllers/pedidoController");
 
 router.get("/dashboard",clienteController.getCliente);
 
@@ -15,6 +16,25 @@ router.get("/dashboard",clienteController.getCliente);
 
 router.put("/user/:id", userController.updateUser);
 
+
+
+/***
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+router.put("/pedidoACT/:id",pedidoController.activarPedido);
+router.put("/pedidoINA/:id",pedidoController.inactivarPedido);
+
+
+
+
+/*
+
+
+* */
 
 /* * *
 *
