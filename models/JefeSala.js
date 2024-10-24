@@ -15,7 +15,7 @@ const JefeSala = sequelize.define("jefesala", {
     },
   },
   salaId: {
-    allowNull: false,
+    allowNull: true,
     type: DataTypes.INTEGER,
     unique:true,
     references: {

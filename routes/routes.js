@@ -15,6 +15,7 @@ router.get("/dashboard",clienteController.getCliente);
 
 
 router.put("/user/:id", userController.updateUser);
+router.put("/userChangeRol/:id/:rol", userController.changeRol);
 
 
 
@@ -27,9 +28,7 @@ router.put("/user/:id", userController.updateUser);
  */
 router.put("/pedidoACT/:id",pedidoController.activarPedido);
 router.put("/pedidoINA/:id",pedidoController.inactivarPedido);
-
-
-
+router.delete("/pedido/:id",pedidoController.eliminarPedido);
 
 /*
 
