@@ -16,6 +16,8 @@ router.get("/dashboard",clienteController.getCliente);
 
 router.put("/user/:id", userController.updateUser);
 router.put("/userChangeRol/:id/:rol", userController.changeRol);
+router.put("/userInact/:id", userController.inactiveUser);
+router.put("/userAct/:id", userController.activeUser);
 
 
 

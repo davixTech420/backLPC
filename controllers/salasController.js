@@ -104,7 +104,7 @@ exports.updateSala = async (req, res) => {
     }
 }
 
-exports.updateSala = async (req, res) => {
+/* exports.updateSala = async (req, res) => {
   try{
       const { id } = req.params;
       const { imagen,nombre,direccion,capacidad,estado } = req.body;
@@ -118,7 +118,7 @@ exports.updateSala = async (req, res) => {
       res.status(500).json({message: error.message});
   }
 }
-
+ */
 
 
 

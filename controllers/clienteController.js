@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const Cliente = require("../models/Client");
 const Shows = require("../models/Shows");
+const Mensaje = require("../models/Mensaje");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
@@ -88,6 +89,28 @@ exports.actualizarCliente = async (req, res) => {
 
 exports.eliminarCliente = async (req, res) => {
     try{
+      const { id } = req.params.id;
+
+
+      const verifyMessage = await Mensaje.findAll({
+        where: {
+          [Op.or]: [
+            { receptor: id },
+            { emisor: id }
+          ]
+        }
+      });
+      const verifyPedido = await Shows.findAll({
+        where:{
+          clienteId: id
+        }
+      });
+      if(verifyMessage.length > 0){
+        return res.status(400).json({ message: 'El cliente no puede eliminarse porque tiene mensajes'});
+      }
+      if(verifyPedido.length > 0){
+        return res.status(400).json({ message: 'El cliente no puede eliminarse porque tiene pedidos'});
+      }
 
         const eliminar = Cliente.destroy({ where: { userId: req.params.id } });
         const eliUsu = User.destroy({
