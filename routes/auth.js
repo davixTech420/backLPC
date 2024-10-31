@@ -11,6 +11,7 @@ router.post('/login', authController.login);
 router.get("/teatros",salaController.getSalasConJefe);
 router.get("/shows",showsController.getShowsActivos);
 router.get("/salas/:id",salaController.getSalasId);
+router.get("/salaFavorita",salaController.getSalaFavorita);
 router.get("/jefe/:salaId", jefeSalaController.getJefeId);
 router.post("/forPass",authController.forgetPassword);
 router.post("/resetPass",authController.resetPassword);

@@ -1,6 +1,7 @@
 const Salas = require("../models/Salas");
 const JefeSala = require("../models/JefeSala");
-const { Op } = require("sequelize");
+const Pedido = require("../models/Pedido");
+const { Op,fn,col } = require("sequelize");
 const multer = require('multer');
 const path = require('path');
 
@@ -12,6 +13,27 @@ exports.getSalas = async (req, res) => {
         res.status(500).json({message: error.message});
     }
 };
+exports.getSalaFavorita = async (req, res) => {
+  try{
+  Pedido.findAll({
+    attributes: ['salaId', [fn('COUNT',col('salaId')), 'totalPedidos']],
+    group: 'salaId',
+    order: [[fn('COUNT',col('salaId')), 'DESC']],
+    raw: true
+  }).then(salas=>{
+    Salas.findOne({
+      where: {
+        id: salas[0].salaId
+      }
+    }).then(sala=>{
+      res.status(201).json(sala);
+    })
+  });
+  }catch(error){
+      res.status(500).json({message: error.message});
+  }
+};
+
 
 exports.getSalasId = async (req, res) => {
     try{
