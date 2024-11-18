@@ -23,7 +23,7 @@ const JefeSala = require("../models/JefeSala");
     const token = jwt.sign({ nombre,apellido,tipIdentidad,identificacion,telefono,email,password,estado,role }, process.env.JWT_SECRET, { expiresIn: '5m' });
 
     // Crear enlace de restablecimiento de contraseña
-    const resetLink = `http://localhost:3001/api/auth/registrarConfir/${token}`;
+    const resetLink = `https://backlpc-production.up.railway.app/api/auth/registrarConfir/${token}`;
 
     //autenticacion para enviar los gmails/
     const oAuth2Client = new google.auth.OAuth2(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET, process.env.GOOGLE_REDIRECT_URI);
@@ -160,7 +160,7 @@ exports.registrarConfirmado = async (req, res) => {
           const Admin = await Administrador.create({
             userId: newUser.id,
           });
-          res.redirect("http://localhost:3000/loginPublic");
+          res.redirect("https://front-lpc.vercel.app/loginPublic");
           
         } catch (error) {
           res.status(500).json({ message: "Error registrando Admin", error });
@@ -174,7 +174,7 @@ exports.registrarConfirmado = async (req, res) => {
             direccion: req.body.direccion,
             userId: newUser.id,
           });
-          res.redirect("http://localhost:3000/loginPublic");
+          res.redirect("https://front-lpc.vercel.app/loginPublic");
         } catch (error) {
           res.status(500).json({ message: "Error registrando Cliente", error });
         }
@@ -376,7 +376,7 @@ exports.forgetPassword = async (req, res) => {
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '5m' });
 
     // Crear enlace de restablecimiento de contraseña
-    const resetLink = `http://localhost:3000/resetPass/${token}`;
+    const resetLink = `https://front-lpc.vercel.app/resetPass/${token}`;
 
     /*autenticacion para enviar los gmails*/
     const oAuth2Client = new google.auth.OAuth2(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET, process.env.GOOGLE_REDIRECT_URI);
